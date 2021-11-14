@@ -42,8 +42,15 @@ export default class NotesView {
 		this.updateNotePreviewVisibility(false);
 	}
 
+	_sanitizeHTML(html) {
+		let tempDiv = document.createElement('div');
+		tempDiv.textContent = html;
+		return tempDiv.innerHTML;
+	}
+
 	_createListItemHTML({ id, title, body, updated }) {
 		const MAX_BODY_LENGTH = 60;
+		body = this._sanitizeHTML(body);
 
 		// * Convert the date into human readable format if it is not already.
 		updated = new Date(updated);
